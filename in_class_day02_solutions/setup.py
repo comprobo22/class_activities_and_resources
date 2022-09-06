@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'test_message = in_class_day02_solutions.test_message:main'
+            'send_message = in_class_day02_solutions.send_message:main',
+            'receive_message = in_class_day02_solutions.receive_message:main'
         ],
     },
 )
