@@ -13,14 +13,15 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='pruvolo',
+    maintainer='Paul Ruvolo',
     maintainer_email='paullundyruvolo@gmail.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='These are the sample solutions for the exercises described at https://comprobo22.github.io/in-class/day03',
+    license='MIT',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'emergency_stop = in_class_day03_solutions.emergency_stop:main'
+            'emergency_stop = in_class_day03_solutions.emergency_stop:main',
+            'distance_emergency_stop = in_class_day03_solutions.distance_emergency_stop:main'
         ],
     },
 )
