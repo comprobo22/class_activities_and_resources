@@ -43,6 +43,9 @@ class DriveSquareSample1(Node):
             segment_duration = self.time_per_side
 
         # check to see if we are done with the segment
+        # here, I use self.get_clock().now() which is better than using time.time() since it works
+        # equally well with simulator or wall clock time (e.g., the simulator might not run
+        # at real-time).  You are totally fine using time.time(), but I wanted to show this.
         if self.get_clock().now() - self.start_time_of_segment > rclpy.time.Duration(seconds=segment_duration):
             if self.executing_turn:
                 self.turns_executed += 1
