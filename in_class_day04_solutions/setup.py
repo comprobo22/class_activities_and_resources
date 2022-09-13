@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'wall_approach = in_class_day04_solutions.wall_approach:main'
+            'wall_approach = in_class_day04_solutions.wall_approach:main',
+            'wall_approach_fancy = in_class_day04_solutions.wall_approach_fancy:main'
         ],
     },
 )
