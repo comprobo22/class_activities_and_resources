@@ -36,7 +36,7 @@ class WallApproachNode(Node):
         if msg.ranges[0] != 0.0:
             # checking for the value 0.0 ensures the data is valid.
             # Your logic here!
-            pass
+            print('scan received', msg.ranges[0])
 
 
 def main(args=None):
