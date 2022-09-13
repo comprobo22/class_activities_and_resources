@@ -27,18 +27,16 @@ class WallApproachNode(Node):
 
     def run_loop(self):
         msg = Twist()
-        if self.distance_to_obstacle is None:
-            # if we haven't seen an obstacle yet, just go straight at fixed vel
-            msg.linear.x = 0.1
-        else:
-            # use proportional control to set the velocity
-            msg.linear.x = self.Kp*(self.distance_to_obstacle - self.target_distance)
+
+        # Your logic here!
+
         self.vel_pub.publish(msg)
 
     def process_scan(self, msg):
         if msg.ranges[0] != 0.0:
             # checking for the value 0.0 ensures the data is valid.
-            self.distance_to_obstacle = msg.ranges[0]
+            # Your logic here!
+            pass
 
 
 def main(args=None):
