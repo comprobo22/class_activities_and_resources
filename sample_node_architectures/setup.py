@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'drive_square = sample_node_architectures.drive_square:main'
+            'drive_square = sample_node_architectures.drive_square:main',
+            'get_odom_rpy = sample_node_architectures.get_odom_rpy:main'
         ],
     },
 )
