@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
 
-# TODO: port this to ROS2
-
-import rospy
+import rclpy
+from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from simple_filter.msg import LaserSimple, OdometrySimple
 from nav_msgs.msg import Odometry
 
-class NeatoBridge(object):
+class NeatoBridge(Node):
     def __init__(self):
-        rospy.init_node('neato_bridge')
-        rospy.Subscriber("/scan", LaserScan, self.process_scan)
-        self.pub = rospy.Publisher('/simple_scan', LaserSimple, queue_size=10)
-
-        rospy.Subscriber('/odom', Odometry, self.process_odom)
-        self.pub_odom = rospy.Publisher('/simple_odom', OdometrySimple, queue_size=10)
+        super().__init__('neato_bridge')
+        self.create_subscription(LaserScan, 'scan', self.process_scan, 10)
+        self.pub = self.create_publisher(LaserSimple, 'simple_scan', 10)
+        self.create_subscription(Odometry, 'odom', self.process_odom, 10)
+        self.pub_odom = self.create_publisher(OdometrySimple, 'simple_odom', 10)
         self.last_odom = None
 
     def process_scan(self, msg):
@@ -31,11 +29,11 @@ class NeatoBridge(object):
                                                  west_to_east_position=msg.pose.pose.position.y))
             self.last_odom = (msg.pose.pose.position.x, msg.pose.pose.position.y)
 
-    def run(self):
-        r = rospy.Rate(5)
-        while not rospy.is_shutdown():
-            r.sleep()
+def main(args=None):
+    rclpy.init(args=args)      # Initialize communication with ROS
+    node = NeatoBridge()   # Create our Node
+    rclpy.spin(node)           # Run the Node until ready to shutdown
+    rclpy.shutdown()           # cleanup
 
 if __name__ == '__main__':
-    node = NeatoBridge()
-    node.run()
+    main()
