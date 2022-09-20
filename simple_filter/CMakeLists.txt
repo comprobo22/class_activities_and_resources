@@ -39,6 +39,13 @@ set(msg_files
     "msg/VelocitySimple.msg"
 )
 
+install(PROGRAMS
+        scripts/neato_bridge.py
+        scripts/simple_kalman.py
+        scripts/simple_particle_filter.py
+        scripts/simple_controller.py
+        DESTINATION lib/${PROJECT_NAME})
+
 rosidl_generate_interfaces(${PROJECT_NAME}
   ${msg_files}
 )
