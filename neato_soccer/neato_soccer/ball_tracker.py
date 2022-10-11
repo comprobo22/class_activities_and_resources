@@ -36,14 +36,33 @@ class BallTracker(Node):
             We are using a separate thread to run the loop_wrapper to work around
             issues with single threaded executors in ROS2 """
         cv2.namedWindow('video_window')
+        cv2.namedWindow('binary_window')
+        cv2.namedWindow('image_info')
+        cv2.setMouseCallback('video_window', self.process_mouse_event)
         while True:
             self.run_loop()
             time.sleep(0.1)
 
+    def process_mouse_event(self, event, x,y,flags,param):
+        """ Process mouse events so that you can see the color values
+            associated with a particular pixel in the camera images """
+        self.image_info_window = 255*np.ones((500,500,3))
+        cv2.putText(self.image_info_window,
+                    'Color (b=%d,g=%d,r=%d)' % (self.cv_image[y,x,0], self.cv_image[y,x,1], self.cv_image[y,x,2]),
+                    (5,50),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    1,
+                    (0,0,0))
+
     def run_loop(self):
+        # NOTE: only do cv2.imshow and cv2.waitKey in this function 
         if not self.cv_image is None:
+            self.binary_image = cv2.inRange(self.cv_image, (128,128,128), (255,255,255))
             print(self.cv_image.shape)
             cv2.imshow('video_window', self.cv_image)
+            cv2.imshow('binary_window', self.binary_image)
+            if hasattr(self, 'image_info_window'):
+                cv2.imshow('image_info', self.image_info_window)
             cv2.waitKey(5)
 
 if __name__ == '__main__':
