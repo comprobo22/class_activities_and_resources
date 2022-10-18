@@ -17,7 +17,7 @@ class ObjectTracker(object):
         keypoints
     """
     def __init__(self):
-        self.keypoint_algorithm = cv2.ORB_create()
+        self.keypoint_algorithm = cv2.SIFT_create()
 
         self.matcher = cv2.BFMatcher()
         self.query_img = None
